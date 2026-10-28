@@ -110,14 +110,12 @@ The FastAPI backend provides:
 
 ## Project layout
 
-qtt-tensor-engine/
-├── Project_bolt/
-│   └── project/       # Next.js frontend and local API routes
-└── TnsrBackend/       # FastAPI backend, calculation code,
-                       # and Wolfram Language scripts
+```text
+Project_bolt/project/   Next.js frontend and its local API routes
+TnsrBackend/            FastAPI application, calculation code, and Wolfram scripts
+```
 
 The frontend package scripts include `npm run typecheck` and `npm run build`.
-
 
 
 ## Additional documentation
