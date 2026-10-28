@@ -1,9 +1,9 @@
-QT Tensor Engine - Interface Guide
+QTT Tensor Engine - Interface Guide
 =================================
 
 1. What this application does
 -----------------------------
-The QT Tensor Engine is a web-based tool for studying which tensor components are allowed under different crystallographic point groups and symmetry operations. It is designed to help you quickly test a Jahn symbol and view the resulting symmetry restrictions in an easy-to-read interface.
+The QTT Tensor Engine is a web-based tool for studying which tensor components are allowed under different crystallographic point groups and symmetry operations. It is designed to help you quickly test a Jahn symbol and view the resulting symmetry restrictions in an easy-to-read interface.
 
 From the interface point of view, the main purpose is simple:
 
@@ -60,15 +60,15 @@ This option helps you explore how the selected operation behaves under time reve
 ---------------------------------
 The app provides several modes to match the analysis you want to perform. Each mode appears as a selectable option in the interface.
 
-A. Individual Point Group
-- Use this when you want to analyse one point group at a time.
-- You select a single group from the dropdown.
-- This is the most direct way to inspect one symmetry case.
-
-B. Individual Crystal Operation
+A. Individual Crystal Operation
 - Use this when you want to inspect one crystallographic operation.
 - You select one operation from the dropdown.
 - If needed, the interface also allows you to choose whether the operation is multiplied by time reversal.
+
+B. Individual Point Group
+- Use this when you want to analyse one point group at a time.
+- You select a single group from the dropdown.
+- This is the most direct way to inspect one symmetry case.
 
 C. All Point Groups (Group to Components)
 - Use this when you want a full overview of all point groups and the tensor components allowed in each one.
