@@ -1,0 +1,170 @@
+QT Tensor Engine - Installation Guide
+====================================
+
+Overview
+--------
+This project contains two main components:
+
+1. Frontend: Next.js web application
+2. Backend API: FastAPI service
+
+The frontend runs on port 3000 and the backend runs on port 8000.
+
+
+Prerequisites
+-------------
+Before installing, make sure the following are available on your system:
+
+- Git
+- Node.js 18 or newer
+- npm
+- Python 3.10 or newer
+- A terminal or command prompt
+
+
+1. Clone the repository
+------------------------
+
+git clone https://github.com/<your-username>/<your-repo-name>.git
+cd <your-repo-name>
+
+
+2. Install the frontend
+-----------------------
+
+cd Project_bolt/project
+npm install
+
+To run the frontend in development mode:
+
+npm run dev
+
+The frontend will be available at:
+
+http://localhost:3000
+
+
+3. Install the backend
+-----------------------
+Open a second terminal window and run:
+
+cd TnsrBackend
+python3 -m venv venv
+source venv/bin/activate
+
+On Windows, use:
+
+venv\Scripts\activate
+
+Then install the Python dependencies:
+
+pip install fastapi uvicorn pydantic
+
+
+4. Run the backend
+-------------------
+From the TnsrBackend directory:
+
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+The backend will be available at:
+
+http://localhost:8000
+
+You can check if it is running by visiting:
+
+http://localhost:8000/
+
+
+5. Verify both services are running
+-----------------------------------
+Once both services started successfully:
+
+- Frontend: http://localhost:3000
+- Backend: http://localhost:8000
+
+Open the frontend in a browser and test the application workflow.
+
+
+6. Optional production build
+----------------------------
+If you want to build the frontend for deployment:
+
+cd Project_bolt/project
+npm run build
+
+Then run it in production mode:
+
+npm run start
+
+
+7. Troubleshooting
+-------------------
+
+Frontend issues
+- Check Node.js installation:
+  node -v
+  npm -v
+- Reinstall dependencies if needed:
+  rm -rf node_modules
+  npm install
+
+Backend issues
+- Ensure the virtual environment is activated
+- Check Python version:
+  python --version
+- Reinstall dependencies:
+  pip install --upgrade pip
+  pip install fastapi uvicorn pydantic
+
+API connection issues
+- Make sure the backend is running on port 8000
+- Confirm the frontend proxy is pointing to the correct backend URL
+- Check if the port is free before starting the service
+
+
+8. Suggested repository documentation
+-------------------------------------
+For community users, include the following sections in your GitHub README:
+
+- Overview
+- Features
+- Prerequisites
+- Installation
+- Running the app
+- Usage
+- Troubleshooting
+- Contribution guidelines
+
+
+Example README snippet
+----------------------
+
+## Installation
+
+### Prerequisites
+- Node.js 18+
+- npm
+- Python 3.10+
+- Git
+
+### Frontend
+cd Project_bolt/project
+npm install
+npm run dev
+
+### Backend
+cd TnsrBackend
+python3 -m venv venv
+source venv/bin/activate
+pip install fastapi uvicorn pydantic
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+### Access
+- Frontend: http://localhost:3000
+- Backend: http://localhost:8000
+
+
+Final note
+-----------
+This project is designed for local development and is suitable for sharing with a research or community audience. If you plan to publish it publicly on GitHub, a clear README and installation guide will help users run the project quickly and reliably.

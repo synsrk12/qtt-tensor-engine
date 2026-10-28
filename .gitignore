@@ -1,0 +1,23 @@
+# Frontend dependencies and generated output
+Project_bolt/project/node_modules/
+Project_bolt/project/.next/
+Project_bolt/project/.netlify/
+Project_bolt/project/.vercel/
+
+# Backend virtual environments and Python cache
+TnsrBackend/venv/
+TnsrBackend/.venv/
+**/__pycache__/
+*.py[cod]
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local/editor artifacts
+.DS_Store
+*.tsbuildinfo
+npm-debug.log*

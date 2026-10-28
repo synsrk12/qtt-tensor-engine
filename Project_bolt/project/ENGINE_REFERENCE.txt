@@ -1,0 +1,195 @@
+QT Tensor Engine - Interface Guide
+=================================
+
+1. What this application does
+-----------------------------
+The QT Tensor Engine is a web-based tool for studying which tensor components are allowed under different crystallographic point groups and symmetry operations. It is designed to help you quickly test a Jahn symbol and view the resulting symmetry restrictions in an easy-to-read interface.
+
+From the interface point of view, the main purpose is simple:
+
+- enter a Jahn symbol
+- choose a calculation mode
+- select a point group or operation
+- click Calculate
+- inspect the results in the Results panel
+- revisit earlier calculations in the History panel
+
+
+2. Main screen layout
+---------------------
+When the app opens, the interface is organized into a few main sections:
+
+- Tensor Definition panel: where the Jahn symbol and calculation settings are entered
+- Mode selection area: where you choose the type of analysis to perform
+- Selection area: where you pick a point group, operation, or custom set of groups
+- Results panel: where the calculated output is displayed
+- History panel: where earlier calculations can be restored or cleared
+
+This layout makes it easy to move from input to analysis without needing to understand the internal processing behind the scenes.
+
+
+3. Tensor Definition panel
+-------------------------
+This is the first area you will use when running a calculation.
+
+A. Jahn Symbol field
+- Enter the Jahn symbol in the text box labeled "Jahn Symbol".
+- This symbol defines the symmetry type of the tensor you want to analyze.
+- Examples of valid formats are shown in the interface via the helper section.
+
+B. Jahn Symbol generator
+- The interface includes a built-in generator to help create a symbol without manual typing.
+- You can set:
+  * Tensor rank
+  * Polar or axial choice
+  * Whether it is odd under time reversal
+  * Symmetrization options
+  * Antisymmetrization options
+- After setting the parameters, click Generate to fill in the symbol automatically.
+
+C. Time reversal option
+- Some calculations require a time reversal setting.
+- In operation mode, the interface gives you a choice between:
+  * Not multiplied
+  * Multiplied
+
+This option helps you explore how the selected operation behaves under time reversal.
+
+
+4. Selecting the calculation mode
+---------------------------------
+The app provides several modes to match the analysis you want to perform. Each mode appears as a selectable option in the interface.
+
+A. Individual Point Group
+- Use this when you want to analyse one point group at a time.
+- You select a single group from the dropdown.
+- This is the most direct way to inspect one symmetry case.
+
+B. Individual Crystal Operation
+- Use this when you want to inspect one crystallographic operation.
+- You select one operation from the dropdown.
+- If needed, the interface also allows you to choose whether the operation is multiplied by time reversal.
+
+C. All Point Groups (Group to Components)
+- Use this when you want a full overview of all point groups and the tensor components allowed in each one.
+- This mode works without manual selection because the interface evaluates the entire list automatically.
+
+D. All Point Groups (Component to Groups)
+- Use this when you want the inverse view: for each tensor component, see which point groups allow it.
+- This is useful when you want to compare many groups at once.
+
+E. Custom Group Selection
+- Use this when you want to analyze a custom subset of groups.
+- The interface lets you choose multiple point groups and compare them together.
+
+
+5. Group and operation selection
+-------------------------------
+The selection area changes based on the mode you choose.
+
+A. If you are in Point Group mode
+- A searchable dropdown appears.
+- Select one group from the list.
+
+B. If you are in Operation mode
+- A searchable dropdown appears for operations.
+- Select the operation you want to study.
+- Then choose the TRS option if needed.
+
+C. If you are in Custom Group mode
+- A multi-select control allows you to choose several point groups.
+- This is helpful when comparing a few relevant groups rather than all groups at once.
+
+D. If you are in an All Groups mode
+- No manual selection is required.
+- The interface automatically evaluates the complete list for the selected calculation type.
+
+
+6. Running a calculation
+------------------------
+Once you have filled the required fields:
+
+1. Enter a Jahn symbol.
+2. Choose a mode.
+3. Select the relevant group or operation.
+4. Confirm the TRS value if needed.
+5. Click the Calculate button.
+
+If something is missing or invalid, the interface shows a clear validation message and asks you to correct the input before proceeding.
+
+
+7. Results panel
+----------------
+The Results panel displays the outcome of the calculation in a readable format.
+
+A. Single-result views
+- When you analyze a single point group or operation, the panel shows the relevant result summary.
+- You can see information such as:
+  * group or operation name
+  * magnetic type
+  * number of generators
+  * independent components
+  * tensor rank
+
+B. Allowed Components tab
+- This tab shows which tensor components are allowed by symmetry.
+- The entries are displayed in a compact symbolic format for easy reading.
+
+C. Matrix tab
+- This tab displays the tensor matrix associated with the result.
+- It helps you visually inspect the structure of the tensor and how symmetry constrains it.
+
+D. Generators tab
+- This section appears for group-based results.
+- It provides the generating symmetry elements used in the selected analysis.
+
+E. Relations tab
+- This tab lists the symmetry relations among tensor components.
+- It is useful for seeing when components must be equal, opposite, or otherwise connected by symmetry.
+
+F. LaTeX preview and export
+- The interface includes a LaTeX preview option.
+- You can preview the generated table or export it as a .tex file for documentation or publication purposes.
+
+
+8. History panel
+----------------
+The History panel stores recent successful calculations so you can revisit earlier work without re-entering everything manually.
+
+Key functions:
+- restore previous calculations
+- clear the history
+- display a limited number of recent entries or all entries
+
+This is especially helpful when you want to compare several results or continue an investigation from a previous step.
+
+
+9. Recommended workflow for everyday use
+----------------------------------------
+A simple way to use the app is:
+
+1. Enter or generate a Jahn symbol.
+2. Choose the relevant mode.
+3. Select the point group or operation.
+4. Click Calculate.
+5. Read the results in the Results panel.
+6. Switch between tabs to inspect allowed components, matrix structure, generators, and relations.
+7. Use the History panel if you want to revisit earlier outputs.
+
+This workflow is designed to keep the analysis process straightforward and easy to follow for readers and users who are new to the tool.
+
+
+10. Practical tips for users
+---------------------------
+- Start with a single point group if you are learning the interface.
+- Use the All Groups modes when you want a full survey of the available symmetry cases.
+- Use Custom Group mode when comparing a few groups of interest.
+- Use the History panel to keep track of multiple calculations in a session.
+- Use the LaTeX export if you need the output in a paper or presentation.
+
+
+11. Summary
+-----------
+The interface is built around a simple workflow: define the tensor, choose the symmetry context, calculate, and then inspect the results in structured tabs. The application is designed to make the symmetry analysis process clear, guided, and easy to work with without requiring knowledge of the internal implementation.
+
+This guide focuses only on how to use the interface effectively and interpret the visible panels and controls in the application.
