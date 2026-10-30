@@ -3,167 +3,154 @@ QTT Tensor Engine - Installation Guide
 
 Overview
 --------
-This project contains two main components:
+The application has two local services:
 
-1. Frontend: Next.js web application
-2. Backend API: FastAPI service
+1. Frontend: Next.js, served on port 3000
+2. Backend API: FastAPI, served on port 8000
 
-The frontend runs on port 3000 and the backend runs on port 8000.
+The backend runs Wolfram Language scripts to perform tensor calculations. Both
+services must be running to use the application.
 
 
 Prerequisites
 -------------
-Before installing, make sure the following are available on your system:
-
 - Git
-- Node.js 18 or newer
-- npm
+- Node.js 18 or newer and npm
 - Python 3.10 or newer
-- A terminal or command prompt
+- Wolfram Engine or Mathematica, with a valid license/entitlement
+
+Install Wolfram Engine or Mathematica separately, following Wolfram's installation
+and licensing instructions. The executable named "wolfram" (or "wolfram.exe" on
+Windows) must be available on PATH before you start the backend. Without a working
+Wolfram installation and license, the website and API can start, but calculations
+will fail.
 
 
 1. Clone the repository
-------------------------
-
-git clone https://github.com/<your-username>/<your-repo-name>.git
-cd <your-repo-name>
-
-
-2. Install the frontend
 -----------------------
 
-cd Project_bolt/project
-npm install
-
-To run the frontend in development mode:
-
-npm run dev
-
-The frontend will be available at:
-
-http://localhost:3000
+git clone https://github.com/synsrk12/qtt-tensor-engine.git
+cd qtt-tensor-engine
 
 
-3. Install the backend
------------------------
-Open a second terminal window and run:
+2. Configure Wolfram
+--------------------
+
+Linux/macOS
+
+Make sure the directory containing the "wolfram" executable is on PATH. For
+example, add the appropriate Wolfram installation directory to your shell profile,
+then open a new terminal. Check that the command is discoverable:
+
+command -v wolfram
+
+Windows PowerShell
+
+The Mathematica installer commonly places wolfram.exe in a versioned directory
+such as:
+
+C:\Program Files\Wolfram Research\Mathematica\13.0
+
+Adjust the path to match your installed version. To make it available in the
+current PowerShell session only, run:
+
+$env:Path = "C:\Program Files\Wolfram Research\Mathematica\13.0;$env:Path"
+Get-Command wolfram
+
+For future terminal sessions, add the directory containing wolfram.exe to your
+Windows user or system PATH using Environment Variables, then open a new terminal.
+Start the backend from a terminal where `Get-Command wolfram` succeeds. A PATH
+change made after the backend starts does not affect that running backend.
+
+If Wolfram provides a separate `wolframscript` command, that alone is not enough:
+this backend launches `wolfram -script`. Ensure the `wolfram` executable itself
+is discoverable on PATH.
+
+
+3. Install and run the backend
+------------------------------
+
+Open a terminal in the repository root, then:
+
+Linux/macOS
 
 cd TnsrBackend
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install fastapi uvicorn pydantic
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 
-On Windows, use:
+Windows PowerShell
 
-venv\Scripts\activate
+cd TnsrBackend
+py -3 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install fastapi uvicorn pydantic
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 
-Then install the Python dependencies:
+If PowerShell prevents virtual-environment activation, you can skip activation
+and use the environment's Python executable directly:
 
-pip install fastapi uvicorn pydantic
+.\.venv\Scripts\python.exe -m pip install fastapi uvicorn pydantic
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 
-
-4. Run the backend
--------------------
-From the TnsrBackend directory:
-
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-
-The backend will be available at:
-
-http://localhost:8000
-
-You can check if it is running by visiting:
-
-http://localhost:8000/
+The backend API is at http://127.0.0.1:8000. Interactive API documentation is at
+http://127.0.0.1:8000/docs.
 
 
-5. Verify both services are running
------------------------------------
-Once both services started successfully:
+4. Install and run the frontend
+-------------------------------
 
-- Frontend: http://localhost:3000
-- Backend: http://localhost:8000
+Open a second terminal in the repository root:
 
-Open the frontend in a browser and test the application workflow.
-
-
-6. Optional production build
-----------------------------
-If you want to build the frontend for deployment:
+Linux/macOS
 
 cd Project_bolt/project
+npm ci
+npm run dev
+
+Windows PowerShell
+
+cd Project_bolt\project
+npm.cmd ci
+npm.cmd run dev
+
+Open http://localhost:3000 in your browser. Keep both services running while
+using the application.
+
+
+5. Optional production build
+----------------------------
+
+From Project_bolt/project:
+
 npm run build
-
-Then run it in production mode:
-
 npm run start
 
 
-7. Troubleshooting
--------------------
+6. Troubleshooting
+------------------
 
-Frontend issues
-- Check Node.js installation:
-  node -v
-  npm -v
-- Reinstall dependencies if needed:
-  rm -rf node_modules
-  npm install
+Frontend command not found
+- Install Node.js 18 or newer, then open a new terminal.
+- Check availability with `node --version` and `npm --version`.
 
-Backend issues
-- Ensure the virtual environment is activated
-- Check Python version:
-  python --version
-- Reinstall dependencies:
-  pip install --upgrade pip
-  pip install fastapi uvicorn pydantic
+Backend command or import errors
+- Confirm you are using Python 3.10 or newer and the backend virtual environment.
+- Install dependencies with `python -m pip install fastapi uvicorn pydantic`.
+- Run the app from the TnsrBackend directory with
+  `uvicorn app.main:app --reload --host 127.0.0.1 --port 8000`.
 
-API connection issues
-- Make sure the backend is running on port 8000
-- Confirm the frontend proxy is pointing to the correct backend URL
-- Check if the port is free before starting the service
+Calculation errors mentioning Wolfram or a missing executable
+- Confirm Wolfram Engine or Mathematica is installed and its license is active.
+- Confirm `wolfram` is on PATH in the same terminal used to start the backend.
+- On Windows, use `Get-Command wolfram` to check command discovery.
+- After changing PATH, stop and restart the backend from a terminal with the
+  updated PATH.
 
+Port already in use
+- Stop the other service using port 3000 or 8000, or configure the application
+  and frontend proxy to use matching alternate ports.
 
-8. Suggested repository documentation
--------------------------------------
-For community users, include the following sections in your GitHub README:
-
-- Overview
-- Features
-- Prerequisites
-- Installation
-- Running the app
-- Usage
-- Troubleshooting
-- Contribution guidelines
-
-Example README snippet
-----------------------
-
-## Installation
-
-### Prerequisites
-- Node.js 18+
-- npm
-- Python 3.10+
-- Git
-
-### Frontend
-cd Project_bolt/project
-npm install
-npm run dev
-
-### Backend
-cd TnsrBackend
-python3 -m venv venv
-source venv/bin/activate
-pip install fastapi uvicorn pydantic
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-
-### Access
-- Frontend: http://localhost:3000
-- Backend: http://localhost:8000
-
-
-Final note
------------
-This project is designed for local development and is suitable for sharing with a research or community audience.
+The frontend forwards calculation requests to http://127.0.0.1:8000. Keep the
+backend at that address unless you also update the frontend API route.

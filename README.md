@@ -23,6 +23,15 @@ Language calculations.
 - Wolfram Engine or Mathematica, with the `wolfram` command available on your `PATH`
 - A Wolfram license/entitlement appropriate for your installation
 
+The Wolfram requirement applies to every operating system: the backend runs Wolfram
+Language scripts for tensor calculations. Install and activate Wolfram Engine or
+Mathematica separately, then make sure the `wolfram` executable is on `PATH` before
+starting the backend. On Windows, the executable is typically in the Mathematica
+installation directory (for example,
+`C:\Program Files\Wolfram Research\Mathematica\13.0`). See the [installation
+guide](Project_bolt/project/INSTALLATION_GUIDE.txt) for Windows PowerShell setup
+and troubleshooting.
+
 ## Run locally
 
 Clone the repository:
@@ -34,8 +43,10 @@ cd qtt-tensor-engine
 
 ### 1. Start the backend
 
-In a terminal:
+Open a terminal in the repository. Create and activate a Python virtual environment
+and install the backend dependencies:
 
+**Linux/macOS**
 ```bash
 cd TnsrBackend
 python3 -m venv .venv
@@ -44,25 +55,42 @@ python -m pip install fastapi uvicorn pydantic
 uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-On Windows, activate the virtual environment with:
-
+**Windows PowerShell**
 ```powershell
-.venv\Scripts\activate
+cd TnsrBackend
+py -3 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install fastapi uvicorn pydantic
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-The backend API is available at <http://127.0.0.1:8000>. Interactive API documentation is at <http://127.0.0.1:8000/docs>.
+Make sure Wolfram is available in this terminal before starting Uvicorn. On Windows,
+add the directory containing `wolfram.exe` to `PATH` first; changes to `PATH` made
+after the backend starts will not be picked up by the running process.
+
+The backend API is available at <http://127.0.0.1:8000>. Interactive API
+documentation is at <http://127.0.0.1:8000/docs>.
 
 ### 2. Start the frontend
 
 In a second terminal, from the repository root:
 
+**Linux/macOS**
 ```bash
 cd Project_bolt/project
 npm ci
 npm run dev
 ```
 
-Open <http://localhost:3000>. Keep the backend running while using the application: the frontend's calculation route forwards requests to `http://127.0.0.1:8000`.
+**Windows PowerShell**
+```powershell
+cd Project_bolt\project
+npm.cmd ci
+npm.cmd run dev
+```
+
+Open <http://localhost:3000>. Keep the backend running while using the application:
+the frontend's calculation route forwards requests to `http://127.0.0.1:8000`.
 
 ## How to use
 

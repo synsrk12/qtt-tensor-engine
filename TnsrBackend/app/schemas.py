@@ -4,7 +4,7 @@ from typing import Any, List, Optional
 class CalculationRequest(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 
-    jahnSymbol: str = Field(...)
+    jahnSymbol: str = Field(..., alias="jahn")
     mode: str
     selection: List[str] = Field(default_factory=list)
     trs: Optional[str] = ""
